@@ -1,20 +1,17 @@
 package model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
 public class Producto {
-    private List<Agent> agents = new ArrayList<>(); //autowired
+    private List<Agent> agents = new ArrayList<>();
     private String nombre;
-    private Currency precio;
+    private double precio;
     private int cantidad;
     private String categoria;
 
-    @Autowired
-    public void Producto(String nombre, Currency precio, int cantidad, String categoria){
+    public Producto(String nombre, double precio, int cantidad, String categoria){
         this.nombre = nombre;
         this.precio = precio;
         this.cantidad = cantidad;
@@ -35,10 +32,10 @@ public class Producto {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public Currency getPrecio() {
+    public double getPrecio() {
         return precio;
     }
-    public void setPrecio(Currency precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
     public String getCategoria(){
