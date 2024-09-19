@@ -1,8 +1,5 @@
 package edu.eci.cvds.parcial;
 
-import model.LogAgent;
-import model.Producto;
-import model.WarningAgent;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

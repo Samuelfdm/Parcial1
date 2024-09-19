@@ -39,7 +39,7 @@ class ParcialApplicationTests {
 
 		productoService.updateStock("xbox one s", 4);
 
-		verify(agenteLog).notificarCambioStock(producto);
-		verify(agenteAdvertencia).notificarBajoStock(producto);
+		verify(agenteLog).update(producto);
+		verify(agenteAdvertencia).update(producto);
 	}
 }
