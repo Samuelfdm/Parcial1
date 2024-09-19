@@ -1,45 +1,38 @@
 package edu.eci.cvds.parcial;
 
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
-
 import model.LogAgent;
 import model.Producto;
 import model.WarningAgent;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import repository.ProductoRepository;
-import service.ProductoService;
 
-class ParcialApplicationTests {
-	@InjectMocks
-	private ProductoService productoService;
+import static org.junit.jupiter.api.Assertions.*;
 
-	@Mock
-	private ProductoRepository productoRepository;
+class AgentTest {
 
-	@Mock
-	private LogAgent agenteLog;
+	@Test
+	void testLogAgent() {
+		// Crear un producto
+		Producto producto = new Producto("xbox one s", 299.99, 10, "consolas");
+		LogAgent logAgent = new LogAgent();
+		String expectedOutput = "Producto: xbox one s -> 10 unidades disponibles\n";
 
-	@Mock
-	private WarningAgent agenteAdvertencia;
+		// Ejecutar la actualización
+		logAgent.update(producto);
 
-	@BeforeEach
-	void init() {
-		MockitoAnnotations.openMocks(this);
+		assertEquals("xbox one s", producto.getNombre());
+		assertEquals(10, producto.getCantidad());
 	}
 
 	@Test
-	void testUpdateStock() {
-		Producto producto = new Producto("xbox one s", 299.99, 10, "consolas");
-		when(productoRepository.getProducto("xbox one s")).thenReturn(producto);
+	void testWarningAgent() {
+		// Crear un producto con bajo stock
+		Producto producto = new Producto("xbox one s", 299.99, 4, "consolas");
+		WarningAgent warningAgent = new WarningAgent();
+		String expectedOutput = "ALERTA!!! El stock del Producto: xbox one s es muy bajo, solo quedan 4 unidades.\n";
 
-		productoService.updateStock("xbox one s", 4);
+		warningAgent.update(producto);
 
-		verify(agenteLog).update(producto);
-		verify(agenteAdvertencia).update(producto);
+		assertEquals("xbox one s", producto.getNombre());
+		assertEquals(4, producto.getCantidad());
 	}
 }
